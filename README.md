@@ -1,54 +1,97 @@
-# Material UI DateRange Picker
+# react-daterange-picker 
+A react date range picker using material-ui components.
 
-A react date range picker implementation using @material-ui.
-
-<a href='https://www.npmjs.com/package/materialui-daterange-picker'>
-    <img src='https://img.shields.io/npm/v/materialui-daterange-picker.svg' alt='Latest npm version'>
+<a href='https://www.npmjs.com/package/material-mui-date-range-picker'>
+    <img src='https://img.shields.io/npm/v/material-mui-date-range-picker.svg' alt='Latest npm version'>
 </a>
 
-## Preview
+### Forked from [jungsoft/materialui-daterange-picker](https://github.com/jungsoft/materialui-daterange-picker), [flippingbitss/react-daterange-picker](https://github.com/flippingbitss/react-daterange-picker) to work with v5
 
-![Screenshot](/screenshot.png?raw=true "Screenshot")
-
-## Live Demo
-
-Check out the project running [here](https://codesandbox.io/s/materialui-daterange-picker-2p3f1?file=/src/App.js)!
+## Live Demo: https://nikhilgoud.github.io/material-mui-date-range-picker/
 
 ## Usage
 
 ```bash
-npm install materialui-daterange-picker --save
-
+npm install material-mui-date-range-picker --save
 # or with yarn
-yarn add materialui-daterange-picker
+yarn add material-mui-date-range-picker
 ```
 
-## Basic example
+![Screenshot](/screenshot.png?raw=true "Screenshot")
+
+## Basic Example
 ```tsx
 import React from "react";
-import { DateRangePicker, DateRange } from "materialui-daterange-picker";
+import { DateRangePicker, DateRange } from "material-mui-date-range-picker";
 
 type Props = {}
+type State = {
+    open: boolean,
+    dateRange: DateRange
+}
 
-const App: React.FunctionComponent<Props> = props => {
-  const [open, setOpen] = React.useState(false);
-  const [dateRange, setDateRange] = React.useState<DateRange>({});
-
-  const toggle = () => setOpen(!open);
-
-  return (
-    <DateRangePicker
-      open={open}
-      toggle={toggle}
-      onChange={(range) => setDateRange(range)}
-    />
-  );
+class App extends React.Component<Props, State> {
+	state = {
+		open: true,
+		dateRange: {}
+	};
+	
+	render() {
+		return (
+			<DateRangePicker
+				open={this.state.open}
+				onChange={range => this.setState({ dateRange: range })}
+			/>
+		);
+	}
 }
 
 export default App;
 ```
 
-## Types
+## Basic example using hooks
+```tsx
+import React from "react";
+import { DateRangePicker, DateRange } from "material-mui-date-range-picker";
+
+type Props = {}
+
+const App: React.FunctionComponent<Props> = props => {
+	const [open, setOpen] = React.useState(false);
+	const [dateRange, setDateRange] = React.useState<DateRange>({});
+
+	return (
+		<DateRangePicker
+			open={open}
+			onChange={range => setDateRange(range)}
+		/>
+	);
+}
+
+export default App;
+```
+
+```tsx
+import React from "react";
+import { DateRangeEditor, DateRange } from "material-mui-date-range-picker";
+
+type Props = {}
+
+const App: React.FunctionComponent<Props> = props => {
+	const [dateRange, setDateRange] = React.useState<DateRange>({});
+
+	return (
+		<DateRangeEditor
+			dateRange={dateRange}
+			onChange={range => setDateRange(range)}
+		/>
+	);
+}
+
+export default App;
+```
+
+## Types 
 ```ts
 interface DateRange {
     startDate?: Date,
@@ -63,6 +106,7 @@ interface DefinedRange {
 ```
 
 ## Props
+### `DateRangePicker` Props
 
 Name | Type | Required | Default value | Description
 :--- | :--- | :--- | :--- | :---
@@ -75,8 +119,17 @@ Name | Type | Required | Default value | Description
 `closeOnClickOutside` | `boolean` | _optional_ | `true` | defines if DateRangePicker will be closed when clicking outside of it
 `wrapperClassName` | `object` | _optional_ | `undefined` | defines additional wrapper style classes
 
-## Made possible by
 
-<a href="https://github.com/jungsoft/materialui-daterange-picker/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=jungsoft/materialui-daterange-picker" />
-</a>
+### `DateRangeEditor` Props
+
+Name | Type | Required | Default value | Description
+:--- | :--- | :--- | :--- | :---
+`dateRange` | `DateRange` | _required_ | `{}` | selected date range
+`onChange` | `(DateRange) => void` | _required_ | - | handler function for providing selected date range
+`mask` | `string` | _optional_ | `__/__/____` | input mask for DateInputs
+`dateInputDelimeter` | `string` | _optional_ | `/` | input delimeter/seperatot for DateInputs (mm/dd/yyyy)
+`minDate` | `Date` or `string` | _optional_ | 10 years ago | min date allowed in range
+`maxDate` | `Date` or `string` | _optional_ | 10 years from now | max date allowed in range
+`definedRanges` | `DefinedRange[]` | _optional_ | - | custom defined ranges to show in the list
+
+*Note:* only supports `mm/dd/yyyy` fomat as of now.

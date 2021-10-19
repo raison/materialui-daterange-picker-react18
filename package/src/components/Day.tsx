@@ -1,51 +1,46 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
-
 import * as React from 'react';
-import {
-  IconButton,
-  Typography,
-  makeStyles,
-  // eslint-disable-next-line no-unused-vars
-  Theme,
-} from '@material-ui/core';
+import { IconButton, Typography, Theme } from '@mui/material';
+import { createStyles, withStyles, WithStyles, Styles } from '@mui/styles';
 import { combine } from '../utils';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  leftBorderRadius: {
-    borderRadius: '50% 0 0 50%',
-  },
-  rightBorderRadius: {
-    borderRadius: '0 50% 50% 0',
-  },
-  buttonContainer: {
-    display: 'flex',
-  },
-  button: {
-    height: 36,
-    width: 36,
-    padding: 0,
-  },
-  buttonText: {
-    lineHeight: 1.6,
-  },
-  outlined: {
-    border: `1px solid ${theme.palette.primary.dark}`,
-  },
-  filled: {
-    '&:hover': {
+const styles: Styles<any, any> = (theme: Theme) =>
+  createStyles({
+    leftBorderRadius: {
+      borderRadius: '50% 0 0 50%',
+    },
+    rightBorderRadius: {
+      borderRadius: '0 50% 50% 0',
+    },
+    buttonContainer: {
+      display: 'flex',
+    },
+    button: {
+      height: 36,
+      width: 36,
+      padding: 0,
+    },
+    buttonText: {
+      lineHeight: 1.6,
+			color: theme.palette.mode === 'light' ? 'initial' : undefined,
+    },
+    outlined: {
+      border: `1px solid ${theme.palette.primary.dark}`,
+    },
+    filled: {
+      '&:hover': {
+        backgroundColor: theme.palette.primary.dark,
+      },
       backgroundColor: theme.palette.primary.dark,
     },
-    backgroundColor: theme.palette.primary.dark,
-  },
-  highlighted: {
-    backgroundColor: theme.palette.action.hover,
-  },
-  contrast: {
-    color: theme.palette.primary.contrastText,
-  },
-}));
+    highlighted: {
+      backgroundColor: theme.palette.mode === 'dark' ? '#e3f2fd6e' : '#bbdefb7d',
+    },
+    contrast: {
+      color: theme.palette.primary.contrastText,
+    },
+  });
 
-interface DayProps {
+interface DayProps extends WithStyles<typeof styles> {
   filled?: boolean;
   outlined?: boolean;
   highlighted?: boolean;
@@ -57,51 +52,36 @@ interface DayProps {
   value: number | string;
 }
 
-const Day: React.FunctionComponent<DayProps> = ({
-  startOfRange,
-  endOfRange,
-  disabled,
-  highlighted,
-  outlined,
-  filled,
-  onClick,
-  onHover,
-  value,
-}: DayProps) => {
-  const classes = useStyles();
-
+const Day: React.FunctionComponent<DayProps> = (props) => {
+  const { classes } = props;
   return (
     <div
       className={combine(
         classes.buttonContainer,
-        startOfRange && classes.leftBorderRadius,
-        endOfRange && classes.rightBorderRadius,
-        !disabled && highlighted && classes.highlighted,
+        props.startOfRange && classes.leftBorderRadius,
+        props.endOfRange && classes.rightBorderRadius,
+        !props.disabled && props.highlighted && classes.highlighted
       )}
     >
       <IconButton
         className={combine(
           classes.button,
-          !disabled && outlined && classes.outlined,
-          !disabled && filled && classes.filled,
+          !props.disabled && props.outlined && classes.outlined,
+          !props.disabled && props.filled && classes.filled
         )}
-        disabled={disabled}
-        onClick={onClick}
-        onMouseOver={onHover}
+        disabled={props.disabled}
+        onClick={props.onClick}
+        onMouseOver={props.onHover}
       >
         <Typography
-          color={!disabled ? 'textPrimary' : 'textSecondary'}
-          className={combine(
-            classes.buttonText,
-            !disabled && filled && classes.contrast,
-          )}
-          variant="body2"
+          className={combine(classes.buttonText, !props.disabled && props.filled && classes.contrast)}
+          variant='body2'
         >
-          {value}
+          {!props.disabled && props.value}
         </Typography>
       </IconButton>
     </div>
   );
 };
 
-export default Day;
+export default withStyles(styles)(Day);

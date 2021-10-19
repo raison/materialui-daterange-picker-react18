@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import * as React from 'react';
-import classNames from 'classnames';
-import { makeStyles } from '@material-ui/core';
+import React from 'react';
+import makeStyles from '@mui/styles/makeStyles';
 
 import DateRangePicker from './DateRangePicker';
 
@@ -41,17 +40,10 @@ export interface DateRangePickerWrapperProps {
   wrapperClassName?: string;
 }
 
-const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProps> = (
-  props: DateRangePickerWrapperProps,
-) => {
+const DateRangePickerWrapper: React.FC<DateRangePickerWrapperProps> = (props: DateRangePickerWrapperProps) => {
   const classes = useStyles();
 
-  const {
-    closeOnClickOutside,
-    wrapperClassName,
-    toggle,
-    open,
-  } = props;
+  const { closeOnClickOutside, wrapperClassName, toggle, open } = props;
 
   const handleToggle = () => {
     if (closeOnClickOutside === false) {
@@ -63,21 +55,11 @@ const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProp
 
   const handleKeyPress = (event: any) => event?.key === 'Escape' && handleToggle();
 
-  const wrapperClasses = classNames(classes.dateRangePicker, wrapperClassName);
-
   return (
     <div className={classes.dateRangePickerContainer}>
-      {
-        open && (
-          <div
-            className={classes.dateRangeBackdrop}
-            onKeyPress={handleKeyPress}
-            onClick={handleToggle}
-          />
-        )
-      }
+      {open && <div className={classes.dateRangeBackdrop} onKeyPress={handleKeyPress} onClick={handleToggle} />}
 
-      <div className={wrapperClasses}>
+      <div className={`${classes.dateRangePicker} ${wrapperClassName}`}>
         <DateRangePicker {...props} />
       </div>
     </div>

@@ -1,52 +1,39 @@
 import * as React from 'react';
-import {
-  Paper,
-  Grid,
-  Typography,
-  makeStyles,
-} from '@material-ui/core';
-import {
-  getDate,
-  isSameMonth,
-  isToday,
-  format,
-  isWithinRange,
-} from 'date-fns';
-import {
-  chunks,
-  getDaysInMonth,
-  isStartOfRange,
-  isEndOfRange,
-  inDateRange,
-  isRangeSameDay,
-} from '../utils';
+import { Paper, Grid, Typography, Theme } from '@mui/material';
+import { createStyles, WithStyles, withStyles, Styles } from '@mui/styles';
+import { getDate, isSameMonth, isToday, format, isWithinInterval } from 'date-fns';
+import { chunks, getDaysInMonth, isStartOfRange, isEndOfRange, inDateRange, isRangeSameDay } from '../utils';
 import Header from './Header';
 import Day from './Day';
-
-
-// eslint-disable-next-line no-unused-vars
 import { NavigationAction, DateRange } from '../types';
 
 const WEEK_DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-const useStyles = makeStyles(() => ({
-  root: {
-    width: 290,
-  },
-  weekDaysContainer: {
-    marginTop: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-  },
-  daysContainer: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginTop: 15,
-    marginBottom: 20,
-  },
-}));
+const styles: Styles<any, any> = (theme: Theme) =>
+  createStyles({
+    root: {
+      width: 290,
+      backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+    },
+    weekDaysContainer: {
+      marginTop: 10,
+      paddingLeft: 30,
+      paddingRight: 30,
+      justifyContent: 'space-around',
+    },
+    daysContainer: {
+      paddingLeft: 15,
+      paddingRight: 15,
+      marginTop: 15,
+      marginBottom: 20,
+    },
+    daysRowContainer: {
+      marginTop: 1,
+      marginBottom: 1,
+    },
+  });
 
-interface MonthProps {
+interface MonthProps extends WithStyles<typeof styles> {
   value: Date;
   marker: symbol;
   dateRange: DateRange;
@@ -64,23 +51,10 @@ interface MonthProps {
   };
 }
 
-const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
-  const classes = useStyles();
+const Month: React.FunctionComponent<MonthProps> = (props) => {
+  const { classes, helpers, handlers, value: date, dateRange, marker, setValue: setDate, minDate, maxDate } = props;
 
-  const {
-    helpers,
-    handlers,
-    value: date,
-    dateRange,
-    marker,
-    setValue: setDate,
-    minDate,
-    maxDate,
-  } = props;
-
-  // eslint-disable-next-line react/destructuring-assignment
   const [back, forward] = props.navState;
-
   return (
     <Paper square elevation={0} className={classes.root}>
       <Grid container>
@@ -93,30 +67,17 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
           onClickNext={() => handlers.onMonthNavigate(marker, NavigationAction.Next)}
         />
 
-        <Grid
-          item
-          container
-          direction="row"
-          justify="space-between"
-          className={classes.weekDaysContainer}
-        >
+        <Grid item container direction='row' className={classes.weekDaysContainer} component={'div'}>
           {WEEK_DAYS.map((day) => (
-            <Typography color="textSecondary" key={day} variant="caption">
+            <Typography color='textSecondary' key={day} variant='caption'>
               {day}
             </Typography>
           ))}
         </Grid>
 
-        <Grid
-          item
-          container
-          direction="column"
-          justify="space-between"
-          className={classes.daysContainer}
-        >
+        <Grid item container direction='column' className={classes.daysContainer} component={'div'}>
           {chunks(getDaysInMonth(date), 7).map((week, idx) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Grid key={idx} container direction="row" justify="center">
+            <Grid key={idx} container direction='row' className={classes.daysRowContainer}>
               {week.map((day) => {
                 const isStart = isStartOfRange(dateRange, day);
                 const isEnd = isEndOfRange(dateRange, day);
@@ -125,13 +86,16 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
 
                 return (
                   <Day
-                    key={format(day, 'MM-DD-YYYY')}
+                    key={format(day, 'mm-dd-yyyy')}
                     filled={isStart || isEnd}
                     outlined={isToday(day)}
                     highlighted={highlighted && !isRangeOneDay}
                     disabled={
-                      !isSameMonth(date, day)
-                      || !isWithinRange(day, minDate, maxDate)
+                      !isSameMonth(date, day) ||
+                      !isWithinInterval(day, {
+                        start: minDate,
+                        end: maxDate,
+                      })
                     }
                     startOfRange={isStart && !isRangeOneDay}
                     endOfRange={isEnd && !isRangeOneDay}
@@ -149,4 +113,4 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
   );
 };
 
-export default Month;
+export default withStyles(styles)(Month);

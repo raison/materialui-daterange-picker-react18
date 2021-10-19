@@ -1,44 +1,29 @@
 import React from 'react';
-import {
-  Paper,
-  Grid,
-  Typography,
-  Divider,
-  makeStyles,
-  // eslint-disable-next-line no-unused-vars
-  Theme,
-} from '@material-ui/core';
+import { Paper, Grid, Typography, Divider, Theme } from '@mui/material';
+import { WithStyles, withStyles, createStyles, Styles } from '@mui/styles';
 import { format, differenceInCalendarMonths } from 'date-fns';
-import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
+import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
 import Month from './Month';
 import DefinedRanges from './DefinedRanges';
-import {
-  // eslint-disable-next-line no-unused-vars
-  DateRange,
-  // eslint-disable-next-line no-unused-vars
-  DefinedRange,
-  // eslint-disable-next-line no-unused-vars
-  Setter,
-  // eslint-disable-next-line no-unused-vars
-  NavigationAction,
-} from '../types';
+import { DateRange, DefinedRange, Setter, NavigationAction } from '../types';
 import { MARKERS } from './DateRangePicker';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  header: {
-    padding: '20px 70px',
-  },
-  headerItem: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  divider: {
-    borderLeft: `1px solid ${theme.palette.action.hover}`,
-    marginBottom: 20,
-  },
-}));
+const styles: Styles<any, any> = (theme: Theme) =>
+  createStyles({
+    header: {
+      padding: '20px 70px',
+    },
+    headerItem: {
+      flex: 1,
+      textAlign: 'center',
+    },
+    divider: {
+      borderLeft: `1px solid ${theme.palette.action.hover}`,
+      marginBottom: 20,
+    },
+  });
 
-interface MenuProps {
+interface MenuProps extends WithStyles<typeof styles> {
   dateRange: DateRange;
   ranges: DefinedRange[];
   minDate: Date;
@@ -58,10 +43,9 @@ interface MenuProps {
   };
 }
 
-const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
-  const classes = useStyles();
-
+const Menu: React.FunctionComponent<MenuProps> = (props: any) => {
   const {
+    classes,
     ranges,
     dateRange,
     minDate,
@@ -74,33 +58,26 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     helpers,
     handlers,
   } = props;
-
   const { startDate, endDate } = dateRange;
   const canNavigateCloser = differenceInCalendarMonths(secondMonth, firstMonth) >= 2;
-  const commonProps = {
-    dateRange, minDate, maxDate, helpers, handlers,
-  };
+  const commonProps = { dateRange, minDate, maxDate, helpers, handlers };
   return (
     <Paper elevation={5} square>
-      <Grid container direction="row" wrap="nowrap">
+      <Grid container direction='row' wrap='nowrap'>
         <Grid>
-          <Grid container className={classes.header} alignItems="center">
+          <Grid container className={classes.header} alignItems='center'>
             <Grid item className={classes.headerItem}>
-              <Typography variant="subtitle1">
-                {startDate ? format(startDate, 'MMMM DD, YYYY') : 'Start Date'}
-              </Typography>
+              <Typography variant='subtitle1'>{startDate ? format(startDate, 'MMMM dd, yyyy') : 'Start Date'}</Typography>
             </Grid>
             <Grid item className={classes.headerItem}>
-              <ArrowRightAlt color="action" />
+              <ArrowRightAlt color='action' />
             </Grid>
             <Grid item className={classes.headerItem}>
-              <Typography variant="subtitle1">
-                {endDate ? format(endDate, 'MMMM DD, YYYY') : 'End Date'}
-              </Typography>
+              <Typography variant='subtitle1'>{endDate ? format(endDate, 'MMMM dd, yyyy') : 'End Date'}</Typography>
             </Grid>
           </Grid>
           <Divider />
-          <Grid container direction="row" justify="center" wrap="nowrap">
+          <Grid container direction='row' wrap='nowrap'>
             <Month
               {...commonProps}
               value={firstMonth}
@@ -120,15 +97,11 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
         </Grid>
         <div className={classes.divider} />
         <Grid>
-          <DefinedRanges
-            selectedRange={dateRange}
-            ranges={ranges}
-            setRange={setDateRange}
-          />
+          <DefinedRanges selectedRange={dateRange} ranges={ranges} setRange={setDateRange} />
         </Grid>
       </Grid>
     </Paper>
   );
 };
 
-export default Menu;
+export default withStyles(styles)(Menu);
