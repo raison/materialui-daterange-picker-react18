@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css';
 import { DateRangePicker, DateRange, DateRangeEditor } from 'material-mui-date-range-picker';
-import { ThemeProvider, StyledEngineProvider, createTheme, alpha, useTheme } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider, useTheme } from '@mui/material/styles';
 import { Button, Grid } from '@mui/material';
-import { Grid3x3TwoTone } from '@mui/icons-material';
 
 function App() {
   const [dateRange, setDateRange] = React.useState<DateRange>({});
