@@ -1,4 +1,5 @@
 {
+  "name": "material-mui-date-range-picker",
   "author": {
     "name": "Nikhil Goud",
     "email": "nikhilgoud24@gmail.com"
@@ -7,20 +8,33 @@
     "url": "https://github.com/nikhilgoud/materialui-daterange-picker/issues"
   },
   "bundleDependencies": false,
-  "dependencies": {
-    "@mui/icons-material": "^5.0.3",
+  "description": "A react date range picker using Material Design",
+  "homepage": "https://github.com/nikhilgoud/materialui-daterange-picker#readme",
+  "license": "MIT",
+  "deprecated": false,
+  "main": "dist/index.js",
+  "scripts": {
+    "webpack-start": "webpack— watch",
+    "webpack-build": "webpack",
+    "build": "tsc",
+    "start": "tsc --watch",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikhilgoud/materialui-daterange-picker.git"
+  },
+  "version": "5.0.1",
+  "peerDependencies": {
     "@mui/material": "^5.0.3",
     "@mui/styles": "^5.0.1",
-    "date-fns": "2.19.0"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
-  "deprecated": false,
-  "description": "A react date range picker using Material Design",
-  "devDependencies": {
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
-    "typescript": "4.2.3"
-  },
-  "homepage": "https://github.com/nikhilgoud/materialui-daterange-picker#readme",
   "keywords": [
     "react",
     "component",
@@ -37,23 +51,37 @@
     "npm",
     "package"
   ],
-  "license": "MIT",
-  "main": "build/index.js",
-  "name": "material-mui-date-range-picker",
-  "peerDependencies": {
+  "dependencies": {
+    "@mui/icons-material": "^5.0.3",
     "@mui/material": "^5.0.3",
     "@mui/styles": "^5.0.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "date-fns": "2.19.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nikhilgoud/materialui-daterange-picker.git"
-  },
-  "scripts": {
-    "build": "tsc",
-    "start": "tsc --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "version": "5.0.3"
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-flow": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.4.0",
+    "eslint": "^8.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "style-loader": "^3.3.1",
+    "typescript": "4.2.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-node-externals": "^3.0.0"
+  }
 }

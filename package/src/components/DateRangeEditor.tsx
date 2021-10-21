@@ -240,7 +240,7 @@ const DateRangeEditor: React.FC<DateRangeEditorProps> = (props) => {
               value={dateTo}
             />
           </Grid>
-          <Box style={{ position: 'absolute', marginLeft: -115 }}>
+          <Box style={{ position: 'absolute', marginLeft: -115, zIndex: 1 }}>
             {openDateRangePicker && (
               <Menu
                 dateRange={daterange}

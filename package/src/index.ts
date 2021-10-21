@@ -10,3 +10,11 @@ export {
   DefinedRange,
   DateRange,
 };
+
+// module.exports = {
+//   DateRangePicker: DateRangePickerExporter,
+//   DateRangePickerComponent: DateRangePicker,
+//   DateRangeEditor: DateRangeEditor,
+//   DefinedRange: DefinedRange,
+//   DateRange: DateRange,
+// };

@@ -2,12 +2,16 @@
 
 # dependencies
 node_modules
+package/node_modules
+sandbox/node_modules
 
 # testing
 /coverage
 
 # builds
 build
+package/build
+sandbox/build
 dist
 .rpt2_cache
 
