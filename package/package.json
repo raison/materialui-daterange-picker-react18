@@ -28,10 +28,10 @@
     "type": "git",
     "url": "git+https://github.com/raison/materialui-daterange-picker-react18.git"
   },
-  "version": "5.0.1",
+  "version": "5.0.2",
   "peerDependencies": {
-    "@mui/material": "^5.0.3",
-    "@mui/styles": "^5.0.1",
+    "@mui/material": "^5.12.3",
+    "@mui/styles": "^5.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -52,9 +52,9 @@
     "package"
   ],
   "dependencies": {
-    "@mui/icons-material": "^5.0.3",
-    "@mui/material": "^5.0.3",
-    "@mui/styles": "^5.0.1",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
+    "@mui/styles": "^5.12.1",
     "date-fns": "2.19.0"
   },
   "devDependencies": {
