@@ -1,15 +1,15 @@
 {
-  "name": "material-mui-date-range-picker",
+  "name": "material-mui-date-range-picker-react18",
   "author": {
-    "name": "Nikhil Goud",
-    "email": "nikhilgoud24@gmail.com"
+    "name": "Edward Raison",
+    "email": "raison@gmail.com"
   },
   "bugs": {
-    "url": "https://github.com/nikhilgoud/materialui-daterange-picker/issues"
+    "url": "https://github.com/raison/materialui-daterange-picker-react18/issues"
   },
   "bundleDependencies": false,
   "description": "A react date range picker using Material Design",
-  "homepage": "https://github.com/nikhilgoud/materialui-daterange-picker#readme",
+  "homepage": "https://github.com/raison/materialui-daterange-picker-react18#readme",
   "license": "MIT",
   "deprecated": false,
   "main": "dist/index.js",
@@ -26,14 +26,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nikhilgoud/materialui-daterange-picker.git"
+    "url": "git+https://github.com/raison/materialui-daterange-picker-react18.git"
   },
   "version": "5.0.1",
   "peerDependencies": {
     "@mui/material": "^5.0.3",
     "@mui/styles": "^5.0.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "keywords": [
     "react",
