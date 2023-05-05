@@ -8,15 +8,17 @@ import DateRangePickerWrapper, { DateRangePickerWrapperProps } from './DateRange
 // const generateClassName = createGenerateClassName({
 //   productionPrefix: 'date-range-picker'
 // });
-const theme = useTheme();
+
 const DateRangePickerExporter: React.FC<DateRangePickerWrapperProps> = (
   props: DateRangePickerWrapperProps,
-) => (
+) => {
+  const theme = useTheme();
+  return (
   <ThemeProvider theme={theme}>
     <DateRangePickerWrapper
       {...props}
     />
   </ThemeProvider>
-);
+)};
 
 export default DateRangePickerExporter;
