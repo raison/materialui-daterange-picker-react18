@@ -57,7 +57,6 @@ interface MenuProps {
 
 const Menu: React.FunctionComponent<MenuProps> = (props: any) => {
   const {
-    classes,
     ranges,
     dateRange,
     minDate,
