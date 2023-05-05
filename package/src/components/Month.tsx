@@ -17,7 +17,9 @@ const classes = {
 };
 
 const StyledPaper = styled(Paper)((
+  {theme}: {
     theme: Theme
+  }
 ) => ({
   [`&.${classes.root}`]: {
     width: 290,

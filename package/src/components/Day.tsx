@@ -19,9 +19,9 @@ const classes = {
 };
 
 const Root = styled('div')((
-
+  {theme}: {
     theme: Theme
-
+  }
 ) => ({
   [`& .${classes.leftBorderRadius}`]: {
     borderRadius: '50% 0 0 50%',

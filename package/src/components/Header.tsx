@@ -14,7 +14,7 @@ const classes = {
 };
 
 const StyledGrid = styled(Grid)((
-  {
+  {theme}: {
     theme: Theme
   }
 ) => ({

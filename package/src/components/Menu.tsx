@@ -18,7 +18,9 @@ const classes = {
 };
 
 const StyledPaper = styled(Paper)((
+  {theme}: {
     theme: Theme
+  }
 ) => ({
   [`& .${classes.header}`]: {
     padding: '20px 70px',
