@@ -1,22 +1,32 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/system';
 
 import DateRangePicker from './DateRangePicker';
 
 // eslint-disable-next-line no-unused-vars
 import { DateRange, DefinedRange } from '../types';
 
-const useStyles = makeStyles(() => ({
-  dateRangePickerContainer: {
+const PREFIX = 'DateRangePickerWrapper';
+
+const classes = {
+  dateRangePickerContainer: `${PREFIX}-dateRangePickerContainer`,
+  dateRangePicker: `${PREFIX}-dateRangePicker`,
+  dateRangeBackdrop: `${PREFIX}-dateRangeBackdrop`
+};
+
+const Root = styled('div')(() => ({
+  [`&.${classes.dateRangePickerContainer}`]: {
     position: 'relative',
   },
-  dateRangePicker: {
+
+  [`& .${classes.dateRangePicker}`]: {
     position: 'relative',
     zIndex: 1,
   },
-  dateRangeBackdrop: {
+
+  [`& .${classes.dateRangeBackdrop}`]: {
     position: 'fixed',
     height: '100vh',
     width: '100vw',
@@ -25,7 +35,7 @@ const useStyles = makeStyles(() => ({
     right: 0,
     left: 0,
     top: 0,
-  },
+  }
 }));
 
 export interface DateRangePickerWrapperProps {
@@ -41,7 +51,7 @@ export interface DateRangePickerWrapperProps {
 }
 
 const DateRangePickerWrapper: React.FC<DateRangePickerWrapperProps> = (props: DateRangePickerWrapperProps) => {
-  const classes = useStyles();
+
 
   const { closeOnClickOutside, wrapperClassName, toggle, open } = props;
 
@@ -56,13 +66,13 @@ const DateRangePickerWrapper: React.FC<DateRangePickerWrapperProps> = (props: Da
   const handleKeyPress = (event: any) => event?.key === 'Escape' && handleToggle();
 
   return (
-    <div className={classes.dateRangePickerContainer}>
+    <Root className={classes.dateRangePickerContainer}>
       {open && <div className={classes.dateRangeBackdrop} onKeyPress={handleKeyPress} onClick={handleToggle} />}
 
       <div className={`${classes.dateRangePicker} ${wrapperClassName}`}>
         <DateRangePicker {...props} />
       </div>
-    </div>
+    </Root>
   );
 };
 

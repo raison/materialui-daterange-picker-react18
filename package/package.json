@@ -7,7 +7,7 @@
   "bugs": {
     "url": "https://github.com/raison/materialui-daterange-picker-react18/issues"
   },
-  "bundleDependencies": false,
+  "bundleDependencies": [],
   "description": "A react date range picker using Material Design",
   "homepage": "https://github.com/raison/materialui-daterange-picker-react18#readme",
   "license": "MIT",
@@ -28,10 +28,9 @@
     "type": "git",
     "url": "git+https://github.com/raison/materialui-daterange-picker-react18.git"
   },
-  "version": "5.0.2",
+  "version": "5.0.3",
   "peerDependencies": {
     "@mui/material": "^5.12.3",
-    "@mui/styles": "^5.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -54,7 +53,7 @@
   "dependencies": {
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.3",
-    "@mui/styles": "^5.12.1",
+    "@mui/system": "^5.12.3",
     "date-fns": "2.19.0"
   },
   "devDependencies": {

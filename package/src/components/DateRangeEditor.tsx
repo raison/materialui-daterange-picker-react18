@@ -1,11 +1,33 @@
 import { Grid, Box, TextField, ClickAwayListener } from '@mui/material';
-import { makeStyles, createStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 import React, { useState } from 'react';
 import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinInterval, max, min } from 'date-fns';
 import { DateRange, DefinedRange, NavigationAction } from '../types';
 import { FormatDateForInput, getValidatedMonths, maskDateFormatter, parseOptionalDate } from '../utils';
 import { defaultRanges } from '../defaults';
 import Menu from './Menu';
+
+const PREFIX = 'DateRangeEditor';
+
+const classes = {
+  btnStyle: `${PREFIX}-btnStyle`,
+  formFieldStyle: `${PREFIX}-formFieldStyle`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(() =>
+  ({
+    [`& .${classes.btnStyle}`]: {
+      margin: '1em',
+      alignItems: 'center',
+      minWidth: 150,
+    },
+
+    [`& .${classes.formFieldStyle}`]: {
+      margin: '1em',
+      minWidth: 180,
+    }
+  }));
 
 type Marker = symbol;
 
@@ -23,20 +45,6 @@ interface DateRangeEditorProps {
   minDate?: Date | string;
   maxDate?: Date | string;
 }
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    btnStyle: {
-      margin: '1em',
-      alignItems: 'center',
-      minWidth: 150,
-    },
-    formFieldStyle: {
-      margin: '1em',
-      minWidth: 180,
-    },
-  })
-);
 
 const DateRangeEditor: React.FC<DateRangeEditorProps> = (props) => {
   const today = new Date();
@@ -203,10 +211,10 @@ const DateRangeEditor: React.FC<DateRangeEditorProps> = (props) => {
     onMonthNavigate,
   };
 
-  const classes = useStyles();
+
 
   return (
-    <>
+    (<Root>
       <ClickAwayListener onClickAway={closeDateRangePicker}>
         <Box>
           <Grid style={{ display: 'flex', alignItems: 'center' }}>
@@ -259,7 +267,7 @@ const DateRangeEditor: React.FC<DateRangeEditorProps> = (props) => {
           </Box>
         </Box>
       </ClickAwayListener>
-    </>
+    </Root>)
   );
 };
 

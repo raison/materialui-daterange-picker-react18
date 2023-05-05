@@ -1,6 +1,7 @@
 import React from 'react';
+import { styled } from '@mui/system';
 import { Paper, Grid, Typography, Divider, Theme } from '@mui/material';
-import { WithStyles, withStyles, createStyles, Styles } from '@mui/styles';
+// import { WithStyles, Styles } from '@mui/styles';
 import { format, differenceInCalendarMonths } from 'date-fns';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
 import Month from './Month';
@@ -8,22 +9,33 @@ import DefinedRanges from './DefinedRanges';
 import { DateRange, DefinedRange, Setter, NavigationAction } from '../types';
 import { MARKERS } from './DateRangePicker';
 
-const styles: Styles<any, any> = (theme: Theme) =>
-  createStyles({
-    header: {
-      padding: '20px 70px',
-    },
-    headerItem: {
-      flex: 1,
-      textAlign: 'center',
-    },
-    divider: {
-      borderLeft: `1px solid ${theme.palette.action.hover}`,
-      marginBottom: 20,
-    },
-  });
+const PREFIX = 'Menu';
 
-interface MenuProps extends WithStyles<typeof styles> {
+const classes = {
+  header: `${PREFIX}-header`,
+  headerItem: `${PREFIX}-headerItem`,
+  divider: `${PREFIX}-divider`
+};
+
+const StyledPaper = styled(Paper)((
+    theme: Theme
+) => ({
+  [`& .${classes.header}`]: {
+    padding: '20px 70px',
+  },
+
+  [`& .${classes.headerItem}`]: {
+    flex: 1,
+    textAlign: 'center',
+  },
+
+  [`& .${classes.divider}`]: {
+    borderLeft: `1px solid ${theme.palette.action.hover}`,
+    marginBottom: 20,
+  }
+}));
+
+interface MenuProps {
   dateRange: DateRange;
   ranges: DefinedRange[];
   minDate: Date;
@@ -62,7 +74,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: any) => {
   const canNavigateCloser = differenceInCalendarMonths(secondMonth, firstMonth) >= 2;
   const commonProps = { dateRange, minDate, maxDate, helpers, handlers };
   return (
-    <Paper elevation={5} square>
+    <StyledPaper elevation={5} square>
       <Grid container direction='row' wrap='nowrap'>
         <Grid>
           <Grid container className={classes.header} alignItems='center'>
@@ -100,8 +112,8 @@ const Menu: React.FunctionComponent<MenuProps> = (props: any) => {
           <DefinedRanges selectedRange={dateRange} ranges={ranges} setRange={setDateRange} />
         </Grid>
       </Grid>
-    </Paper>
+    </StyledPaper>
   );
 };
 
-export default withStyles(styles)(Menu);
+export default (Menu);

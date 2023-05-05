@@ -1,9 +1,38 @@
 import React from 'react';
+import { styled } from '@mui/system';
 import { Grid, IconButton, Select, MenuItem, SelectChangeEvent, Theme } from '@mui/material';
-import { makeStyles, createStyles } from '@mui/styles';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { setMonth, getMonth, setYear, getYear } from 'date-fns';
+
+const PREFIX = 'Header';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  iconContainer: `${PREFIX}-iconContainer`,
+  icon: `${PREFIX}-icon`
+};
+
+const StyledGrid = styled(Grid)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    justifyContent: 'space-around',
+  },
+
+  [`& .${classes.iconContainer}`]: {
+    padding: 5,
+  },
+
+  [`& .${classes.icon}`]: {
+    padding: 10,
+    '&:hover': {
+      background: 'none',
+    },
+  }
+}));
 
 interface HeaderProps {
   date: Date;
@@ -13,23 +42,6 @@ interface HeaderProps {
   onClickNext: () => void;
   onClickPrevious: () => void;
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      justifyContent: 'space-around',
-    },
-    iconContainer: {
-      padding: 5,
-    },
-    icon: {
-      padding: 10,
-      '&:hover': {
-        background: 'none',
-      },
-    },
-  })
-);
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
@@ -41,7 +53,7 @@ const generateYears = (relativeTo: Date, count: number) => {
 };
 
 const Header: React.FunctionComponent<HeaderProps> = ({ date, setDate, nextDisabled, prevDisabled, onClickNext, onClickPrevious }) => {
-  const classes = useStyles();
+
   const handleMonthChange = (event: SelectChangeEvent<number>) => {
     setDate(setMonth(date, parseInt(event.target.value as string)));
   };
@@ -51,7 +63,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ date, setDate, nextDisab
   };
 
   return (
-    <Grid container alignItems='center' className={classes.root}>
+    <StyledGrid container alignItems='center' className={classes.root}>
       <Grid item className={classes.iconContainer}>
         <IconButton className={classes.icon} disabled={prevDisabled} onClick={onClickPrevious}>
           <ChevronLeft color={prevDisabled ? 'disabled' : 'action'} />
@@ -83,7 +95,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ date, setDate, nextDisab
           <ChevronRight color={nextDisabled ? 'disabled' : 'action'} />
         </IconButton>
       </Grid>
-    </Grid>
+    </StyledGrid>
   );
 };
 
